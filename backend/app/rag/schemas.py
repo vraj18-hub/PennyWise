@@ -13,4 +13,5 @@ class RetrievedChunk(BaseModel):
 
 class AskResponse(BaseModel):
     question: str
+    answer: str
     chunks: list[RetrievedChunk]

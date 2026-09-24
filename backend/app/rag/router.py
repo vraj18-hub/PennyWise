@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from app.auth.dependencies import get_current_user
 from app.db.models import User
+from app.llm.service import generate_answer
 from app.rag.schemas import AskRequest, AskResponse
 from app.rag.vectorstore import search
 
@@ -16,5 +17,6 @@ def ask(data: AskRequest, current_user: User = Depends(get_current_user)):
         raise HTTPException(status_code=400, detail="Question cannot be empty")
 
     matches = search(question, n_results=3)
+    answer = generate_answer(question, matches)
 
-    return AskResponse(question=question, chunks=matches)
+    return AskResponse(question=question, answer=answer, chunks=matches)
