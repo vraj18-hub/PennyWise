@@ -1,4 +1,4 @@
-const API_BASE = 'https://your-render-url.onrender.com';
+const API_BASE = 'https://pennywise-api-27qb.onrender.com';
 
 function saveToken(token) {
   localStorage.setItem('pennywise_token', token);
