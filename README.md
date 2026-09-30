@@ -2,7 +2,12 @@
 
 > An educational, privacy-first personal finance platform powered by FastAPI, SQLite, ChromaDB RAG, and local Ollama LLMs.
 
+[![Watch Demo Video](docs/screenshots/brag_poster.jpg)](docs/pennywise_demo.mp4)
+
+*🎬 **[Click here to watch the full PennyWise Demo Video](docs/pennywise_demo.mp4)**.*
+
 ---
+
 
 ## 🏛️ Architecture Overview
 

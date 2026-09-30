@@ -1,0 +1,8 @@
+Built PennyWise: an open-source, local-first personal finance coach. 🏦
+
+• Instant statement analytics with Pandas
+• Grounded RAG knowledge citations with ChromaDB
+• Personalized coaching via local Llama 3.2 via Ollama
+• Total data privacy — raw transactions never leave your laptop.
+
+#BuildInPublic #LocalAI #Python #FastAPI #OpenSource

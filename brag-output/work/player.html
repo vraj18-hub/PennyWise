@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PennyWise Brag Composition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --marble: #F3EFE6;
+    --marble-dark: #E4DCC9;
+    --wood: #B98A5A;
+    --wood-dark: #8B6239;
+    --wood-darker: #6B4A29;
+    --brass: #C9A227;
+    --sage: #7C9473;
+    --ink: #2B2620;
+    --sky: #CFE3EC;
+    --error: #C0453A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1920px;
+    height: 1080px;
+    background: var(--marble);
+    color: var(--ink);
+    font-family: 'Work Sans', system-ui, sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .stage {
+    width: 1920px;
+    height: 1080px;
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 100px;
+  }
+  .stage.active {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Tag pill */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 24px;
+    background: rgba(107, 74, 41, 0.12);
+    border: 1.5px solid var(--brass);
+    border-radius: 999px;
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    color: var(--wood-darker);
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+  }
+
+  .headline {
+    font-family: 'Fraunces', serif;
+    font-size: 64px;
+    font-weight: 700;
+    color: var(--wood-darker);
+    text-align: center;
+    line-height: 1.15;
+    margin-bottom: 36px;
+    max-width: 1500px;
+  }
+  .headline span {
+    color: var(--brass);
+    font-style: italic;
+  }
+
+  /* Mock Card Container */
+  .mock-container {
+    width: 1400px;
+    height: 640px;
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 30px 80px rgba(60, 45, 20, 0.15);
+    border: 3px solid var(--marble-dark);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+  }
+
+  /* Top progress bar */
+  .progress-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 8px;
+    background: linear-gradient(90deg, var(--brass), var(--sage));
+    width: 0%;
+    transition: width 0.1s linear;
+    z-index: 100;
+  }
+
+  /* --- Scene Specifics --- */
+  /* Scene 1: The Gate */
+  .gate-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(180deg, var(--sky) 0%, #EAF1EE 60%, var(--marble) 100%);
+    position: relative;
+  }
+  .gate-card {
+    width: 480px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(60,45,20,0.18);
+    border: 2px solid rgba(201,162,39,0.3);
+  }
+  .gate-card h2 { font-family: 'Fraunces', serif; font-size: 36px; color: var(--wood-darker); margin-bottom: 8px; }
+  .gate-card p { color: #7A7266; font-size: 18px; margin-bottom: 24px; }
+  .gate-card input {
+    width: 100%; padding: 16px 20px; margin-bottom: 14px;
+    border: 2px solid #E1DACB; border-radius: 12px; font-size: 18px; font-family: inherit;
+  }
+  .gate-card button {
+    width: 100%; padding: 18px; background: var(--wood-darker); color: white;
+    border: none; border-radius: 12px; font-family: 'Fraunces', serif; font-size: 22px; cursor: pointer;
+  }
+
+  /* Scene 2: Lobby */
+  .lobby-layout {
+    width: 100%;
+    height: 100%;
+    background: var(--marble);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .lobby-desks {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    width: 1280px;
+    margin-top: 20px;
+  }
+  .desk-card {
+    background: linear-gradient(180deg, var(--wood), var(--wood-dark));
+    border-radius: 20px;
+    padding: 36px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: white;
+    box-shadow: 0 16px 40px rgba(107, 74, 41, 0.25);
+    border-top: 6px solid var(--brass);
+    transform: translateY(0);
+  }
+  .desk-card .icon { font-size: 54px; margin-bottom: 16px; }
+  .desk-card .title { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600; margin-bottom: 8px; }
+  .desk-card .desc { font-size: 15px; opacity: 0.85; line-height: 1.4; }
+
+  /* Scene 3: Ledger */
+  .ledger-layout {
+    width: 100%;
+    height: 100%;
+    padding: 40px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .ledger-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+  .stat-box {
+    background: var(--marble);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    border-top: 6px solid var(--brass);
+  }
+  .stat-box .k { font-size: 18px; color: #8A7F6C; margin-bottom: 8px; font-weight: 500; }
+  .stat-box .v { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 700; color: var(--wood-darker); }
+  .stat-box .v.pos { color: var(--sage); }
+
+  .bars-wrap {
+    background: var(--marble);
+    border-radius: 16px;
+    padding: 24px 32px;
+  }
+  .bar-item { margin-bottom: 14px; }
+  .bar-info { display: flex; justify-content: space-between; font-size: 18px; font-weight: 500; margin-bottom: 6px; }
+  .bar-bg { height: 16px; background: var(--marble-dark); border-radius: 8px; overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--wood); border-radius: 8px; }
+
+  /* Scene 4 & 5: Chat UI */
+  .chat-layout {
+    width: 100%;
+    height: 100%;
+    padding: 40px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+  }
+  .chat-bubble {
+    max-width: 85%;
+    padding: 24px 32px;
+    border-radius: 20px;
+    font-size: 22px;
+    line-height: 1.5;
+  }
+  .chat-bubble.user {
+    align-self: flex-end;
+    background: var(--wood-darker);
+    color: white;
+    border-bottom-right-radius: 4px;
+  }
+  .chat-bubble.assistant {
+    align-self: flex-start;
+    background: var(--marble);
+    border: 2px solid var(--marble-dark);
+    border-bottom-left-radius: 4px;
+  }
+  .citation {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 16px;
+    color: var(--wood-dark);
+    background: rgba(201, 162, 39, 0.15);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+
+  /* Scene 6: Vault */
+  .vault-layout {
+    width: 100%;
+    height: 100%;
+    padding: 40px 60px;
+    display: flex;
+    gap: 40px;
+  }
+  .vault-left { flex: 1.4; }
+  .vault-right {
+    flex: 1;
+    background: #FFF5F4;
+    border: 2px solid var(--error);
+    border-radius: 16px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .vault-table { width: 100%; border-collapse: collapse; font-size: 18px; }
+  .vault-table th { text-align: left; padding: 12px; border-bottom: 3px solid var(--brass); font-family: 'Fraunces', serif; }
+  .vault-table td { padding: 14px 12px; border-bottom: 1px solid var(--marble-dark); }
+  .danger-btn {
+    padding: 16px;
+    background: var(--error);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  /* Outro */
+  .outro-box {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .outro-badge {
+    width: 100px;
+    height: 100px;
+    background: var(--wood-darker);
+    border: 5px solid var(--brass);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    margin-bottom: 24px;
+  }
+  .feature-strip {
+    display: flex;
+    gap: 30px;
+    margin-top: 40px;
+  }
+  .feature-pill {
+    padding: 14px 28px;
+    background: white;
+    border: 2px solid var(--brass);
+    border-radius: 999px;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--wood-darker);
+    box-shadow: 0 10px 25px rgba(60,45,20,0.08);
+  }
+</style>
+</head>
+<body>
+
+  <div class="progress-line" id="progress"></div>
+
+  <!-- SCENE 1: The Gate (0s - 3s) -->
+  <div class="stage" id="s1">
+    <div class="tag">🏛️ Local-First Architecture</div>
+    <div class="headline">Meet <span>PennyWise</span>. Private AI Personal Finance.</div>
+    <div class="mock-container">
+      <div class="gate-layout">
+        <div class="gate-card">
+          <h2>Welcome</h2>
+          <p>Your local finance coach is waiting inside.</p>
+          <input type="email" value="alex@local.finance" readonly>
+          <input type="password" value="••••••••••••" readonly>
+          <button>Step Inside ➔</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 2: The Lobby (3s - 6s) -->
+  <div class="stage" id="s2">
+    <div class="tag">🧭 The Bank Lobby</div>
+    <div class="headline">Four specialized desks for <span>complete sovereignty</span>.</div>
+    <div class="mock-container">
+      <div class="lobby-layout">
+        <div class="lobby-desks">
+          <div class="desk-card" style="transform: translateY(-10px);">
+            <div class="icon">📒</div>
+            <div class="title">The Ledger</div>
+            <div class="desc">Instant CSV uploads, income metrics & category analytics</div>
+          </div>
+          <div class="desk-card">
+            <div class="icon">🎓</div>
+            <div class="title">The Advisor</div>
+            <div class="desc">Grounded RAG finance questions with exact citations</div>
+          </div>
+          <div class="desk-card">
+            <div class="icon">🧭</div>
+            <div class="title">The Coach</div>
+            <div class="desc">Personalized surplus planning with local Llama 3.2</div>
+          </div>
+          <div class="desk-card">
+            <div class="icon">🔒</div>
+            <div class="title">The Vault</div>
+            <div class="desc">Full statement history, password updates & GDPR wipe</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 3: The Ledger (6s - 9.5s) -->
+  <div class="stage" id="s3">
+    <div class="tag">📒 Instant Analytics</div>
+    <div class="headline">Raw bank data parsed <span>locally in milliseconds</span>.</div>
+    <div class="mock-container">
+      <div class="ledger-layout">
+        <div class="ledger-stats">
+          <div class="stat-box"><div class="k">TOTAL INCOME</div><div class="v pos">$5,200.00</div></div>
+          <div class="stat-box"><div class="k">TOTAL EXPENSES</div><div class="v">$2,850.00</div></div>
+          <div class="stat-box"><div class="k">SAVINGS RATE</div><div class="v pos">45.19%</div></div>
+        </div>
+        <div class="bars-wrap">
+          <div class="bar-item">
+            <div class="bar-info"><span>Housing (Rent & Utilities)</span><span>$1,400.00 (49%)</span></div>
+            <div class="bar-bg"><div class="bar-fill" style="width: 49%;"></div></div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-info"><span>Groceries & Household</span><span>$650.00 (23%)</span></div>
+            <div class="bar-bg"><div class="bar-fill" style="width: 23%;"></div></div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-info"><span>Dining & Entertainment</span><span>$450.00 (16%)</span></div>
+            <div class="bar-bg"><div class="bar-fill" style="width: 16%;"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 4: The Advisor (9.5s - 13s) -->
+  <div class="stage" id="s4">
+    <div class="tag">🎓 Grounded RAG Knowledge</div>
+    <div class="headline">Zero hallucinations. <span>Every answer strictly cited</span>.</div>
+    <div class="mock-container">
+      <div class="chat-layout">
+        <div class="chat-bubble user">What is the 50/30/20 budgeting rule?</div>
+        <div class="chat-bubble assistant">
+          The 50/30/20 rule divides your after-tax income into three distinct buckets:<br>
+          • <b>50% for Needs</b> (rent, bills, groceries)<br>
+          • <b>30% for Wants</b> (dining, leisure)<br>
+          • <b>20% for Savings & Investments</b> (emergency fund, SIP, debt reduction)<br>
+          <div class="citation">📑 Sources: data/knowledge_base/budgeting_savings.txt</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 5: The Coach (13s - 16.5s) -->
+  <div class="stage" id="s5">
+    <div class="tag">🧭 Offline AI Coaching</div>
+    <div class="headline">Personalized advice powered by <span>local Llama 3.2</span>.</div>
+    <div class="mock-container">
+      <div class="chat-layout">
+        <div class="chat-bubble user">How much can I safely invest each month?</div>
+        <div class="chat-bubble assistant">
+          Based on your real monthly surplus (<b>$2,350/mo</b> with a 45.2% savings rate):<br><br>
+          1. <b>Emergency Fund</b>: Stash $1,000/mo until 6 months of expenses ($17,100) are protected.<br>
+          2. <b>Index Fund / SIP</b>: Invest the remaining $1,350/mo for long-term compound growth.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 6: The Vault (16.5s - 19.5s) -->
+  <div class="stage" id="s6">
+    <div class="tag">🔒 Complete Data Sovereignty</div>
+    <div class="headline">Total privacy. <span>Delete your data in one click</span>.</div>
+    <div class="mock-container">
+      <div class="vault-layout">
+        <div class="vault-left">
+          <table class="vault-table">
+            <thead><tr><th>Date</th><th>Description</th><th>Category</th><th>Amount</th></tr></thead>
+            <tbody>
+              <tr><td>9/28/2026</td><td>Monthly Direct Deposit</td><td>income</td><td style="color:var(--sage);font-weight:600;">+$5,200.00</td></tr>
+              <tr><td>9/29/2026</td><td>Apartment Rent</td><td>housing</td><td style="color:var(--error);font-weight:600;">-$1,400.00</td></tr>
+              <tr><td>9/29/2026</td><td>Organic Grocery Market</td><td>groceries</td><td style="color:var(--error);font-weight:600;">-$245.50</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="vault-right">
+          <h3 style="font-family:'Fraunces',serif;font-size:24px;color:var(--error);margin-bottom:10px;">⚠️ Danger Zone</h3>
+          <p style="font-size:15px;color:#7A7266;line-height:1.4;">Permanently wipe SQLite records, vectors & credentials.</p>
+          <button class="danger-btn">Delete Account & Data</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 7: Outro (19.5s - 22s) -->
+  <div class="stage" id="s7">
+    <div class="outro-box">
+      <div class="outro-badge">🏦</div>
+      <div class="headline" style="font-size: 72px; margin-bottom: 20px;">PennyWise</div>
+      <p style="font-size: 28px; color: #7A7266; max-width: 900px; line-height: 1.4;">Your personal finance coach. Built with FastAPI, SQLite, ChromaDB & local Ollama.</p>
+      <div class="feature-strip">
+        <div class="feature-pill">🛡️ 100% Local Privacy</div>
+        <div class="feature-pill">⚡ Fast CSV Analytics</div>
+        <div class="feature-pill">🧠 Offline Llama 3.2</div>
+        <div class="feature-pill">📂 Open Source</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Time controller for Playwright frame capture
+    const scenes = [
+      { id: 's1', start: 0.0, end: 3.0 },
+      { id: 's2', start: 3.0, end: 6.2 },
+      { id: 's3', start: 6.2, end: 9.5 },
+      { id: 's4', start: 9.5, end: 13.0 },
+      { id: 's5', start: 13.0, end: 16.5 },
+      { id: 's6', start: 16.5, end: 19.5 },
+      { id: 's7', start: 19.5, end: 22.0 }
+    ];
+
+    window.setVideoTime = function(t) {
+      const progress = document.getElementById('progress');
+      if (progress) {
+        progress.style.width = (t / 22.0 * 100) + '%';
+      }
+
+      scenes.forEach(s => {
+        const el = document.getElementById(s.id);
+        if (el) {
+          if (t >= s.start && t < s.end) {
+            el.classList.add('active');
+          } else {
+            el.classList.remove('active');
+          }
+        }
+      });
+    };
+
+    // Set initial frame at t=0
+    window.setVideoTime(0.0);
+  </script>
+</body>
+</html>
