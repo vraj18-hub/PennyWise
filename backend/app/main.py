@@ -30,6 +30,7 @@ ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:8000",
     "http://127.0.0.1:8000",
+    "https://vraj18-hub.github.io",
 ]
 
 app.add_middleware(
@@ -63,4 +64,4 @@ app.include_router(insights_router)
 
 @app.get("/health")
 def health():
-    return {"status": "ok"}
+    return {"status": "ok"}
