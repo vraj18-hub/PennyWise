@@ -1,4 +1,283 @@
 <!DOCTYPE html>
-<html><body>
-<script src="js/api.js"></script>
-</body></html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PennyWise — Welcome</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --marble: #F3EFE6;
+    --marble-dark: #E4DCC9;
+    --wood: #B98A5A;
+    --wood-dark: #8B6239;
+    --wood-darker: #6B4A29;
+    --brass: #C9A227;
+    --blush: #D8A9A0;
+    --sage: #7C9473;
+    --ink: #2B2620;
+    --sky: #CFE3EC;
+    --error: #C0453A;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--marble); color: var(--ink);
+    font-family: 'Work Sans', system-ui, sans-serif;
+  }
+  h1, h2, h3 { font-family: 'Fraunces', serif; margin: 0; font-weight: 500; }
+  a { color: inherit; }
+
+  .screen { position: fixed; inset: 0; overflow: hidden; }
+
+  /* ================= GATE ================= */
+  #gate { z-index: 5; }
+  .sky-bg { position: absolute; inset: 0;
+    background: linear-gradient(180deg, var(--sky) 0%, #EAF1EE 55%, var(--marble) 100%); }
+
+  .facade {
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 900px; max-width: 96vw;
+    display: flex; flex-direction: column; align-items: center;
+    transition: transform 1.4s cubic-bezier(.6,0,.3,1), opacity 1s ease;
+  }
+  .facade-top { width: 100%; height: 34px; background: var(--marble-dark); border-radius: 4px 4px 0 0; }
+  .facade-columns { display: flex; justify-content: space-between; width: 100%; padding: 0 40px; }
+  .facade-columns .col {
+    width: 26px; height: 310px;
+    background: linear-gradient(90deg, var(--marble-dark), #fff 45%, var(--marble-dark));
+    border-radius: 2px;
+  }
+  .glass-doors { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 380px; max-width: 80vw; height: 340px; display: flex; gap: 6px; }
+  .glass-doors .pane {
+    flex: 1; position: relative;
+    background: linear-gradient(160deg, rgba(207,227,236,0.5), rgba(255,255,255,0.2));
+    border: 4px solid var(--brass); border-radius: 6px 6px 0 0;
+  }
+  .base-step { width: 112%; height: 18px; background: var(--marble-dark); }
+
+  /* Login form is centered on the whole screen, floating over the facade */
+  .login-card {
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 320px; max-width: 86vw;
+    background: rgba(255,255,255,0.92); backdrop-filter: blur(6px);
+    border-radius: 16px; padding: 2rem 1.6rem; text-align: center;
+    box-shadow: 0 20px 50px rgba(60,45,20,0.2);
+    z-index: 6;
+    transition: opacity 0.5s ease;
+  }
+  .login-card h2 { font-size: 1.4rem; color: var(--wood-darker); }
+  .login-card p { color: #7A7266; font-size: 0.82rem; margin: 0.3rem 0 1.2rem; }
+  .login-card input {
+    width: 100%; padding: 0.7rem 0.9rem; margin-bottom: 0.7rem;
+    border: 1.5px solid #E1DACB; border-radius: 10px;
+    font-family: inherit; font-size: 0.9rem; background: white;
+  }
+  .login-card button {
+    width: 100%; padding: 0.8rem; background: var(--wood-darker); color: white;
+    border: none; border-radius: 10px; font-family: 'Fraunces', serif; font-size: 1rem;
+    margin-top: 0.5rem; cursor: pointer; transition: background 0.2s;
+  }
+  .login-card button:hover { background: var(--brass); }
+  .login-card button:disabled { opacity: 0.6; cursor: default; }
+  .login-card .status { font-size: 0.78rem; margin-top: 0.7rem; min-height: 1.1em; }
+  .login-card .status.error { color: var(--error); }
+  .login-card .status.success { color: var(--sage); }
+  .login-card .toggle {
+    margin-top: 0.9rem; font-size: 0.8rem; color: var(--wood-dark);
+    cursor: pointer; text-decoration: underline;
+  }
+
+  .gate-hint {
+    position: absolute; top: 8%; left: 0; right: 0; text-align: center; color: var(--wood-darker);
+  }
+  .gate-hint h1 { font-size: clamp(1.5rem, 3.4vw, 2.3rem); }
+  .gate-hint p { color: #8A7F6C; font-size: 0.85rem; margin-top: 0.3rem; }
+
+  .flash { position: fixed; inset: 0; background: white; opacity: 0; pointer-events: none; z-index: 20; }
+
+  /* ================= LOBBY ================= */
+  #lobby { z-index: 2; opacity: 0; pointer-events: none; }
+  .ceiling { position: absolute; top: 0; left: 0; right: 0; height: 15%;
+    background: repeating-linear-gradient(90deg, var(--wood) 0 22px, var(--wood-dark) 22px 26px); }
+  .floor { position: absolute; bottom: 0; left: 0; right: 0; height: 30%;
+    background: radial-gradient(ellipse at 30% 0%, rgba(255,255,255,0.5), transparent 60%),
+                radial-gradient(ellipse at 70% 30%, rgba(255,255,255,0.3), transparent 55%),
+                var(--marble);
+    border-top: 2px solid var(--marble-dark); }
+  .window { position: absolute; left: 4%; top: 16%; width: 14%; height: 55%;
+    background: linear-gradient(180deg, var(--sky), #fff); border: 10px solid var(--marble-dark); border-radius: 4px; }
+  .plant { position: absolute; left: 5.5%; bottom: 30%; width: 60px; height: 90px; }
+  .plant .pot { position: absolute; bottom: 0; left: 10px; width: 40px; height: 34px;
+    background: var(--wood-dark); border-radius: 4px 4px 8px 8px; }
+  .plant .leaf { position: absolute; width: 14px; height: 46px; background: var(--sage);
+    border-radius: 60% 10% 60% 10%; bottom: 28px; transform-origin: bottom center; }
+  .plant .leaf:nth-child(2) { left: 8px; transform: rotate(-25deg); }
+  .plant .leaf:nth-child(3) { left: 22px; transform: rotate(0deg); height: 54px; }
+  .plant .leaf:nth-child(4) { left: 34px; transform: rotate(24deg); }
+
+  .desks { position: absolute; bottom: 30%; left: 20%; right: 4%; height: 55%;
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 1.4%; }
+  .desk { position: relative; flex: 1; height: 82%;
+    background: linear-gradient(180deg, var(--wood), var(--wood-dark));
+    border-radius: 10px 10px 0 0; display: flex; flex-direction: column; align-items: center;
+    padding-top: 34px; cursor: pointer; transition: transform 0.25s ease, filter 0.25s ease; }
+  .desk:hover { transform: translateY(-10px); filter: brightness(1.06); }
+  .desk .clock { position: absolute; top: -34px; width: 46px; height: 46px; border-radius: 50%;
+    background: #FBF9F3; border: 4px solid var(--brass);
+    display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+  .desk .counter { position: absolute; bottom: 0; width: 92%; height: 34%;
+    background: var(--marble); border-radius: 6px 6px 0 0; border-top: 4px solid var(--brass); }
+  .desk .chair { position: absolute; bottom: 34%; width: 34px; height: 40px;
+    background: var(--blush); border-radius: 40% 40% 30% 30%; }
+  .desk .label { color: #FBF6EA; font-family: 'Fraunces', serif; font-size: 0.92rem;
+    text-align: center; margin-top: 4px; padding: 0 6px; }
+  .desk .sub { color: rgba(251,246,234,0.75); font-size: 0.68rem; text-align: center; padding: 0 10px; margin-top: 2px; }
+
+  .lobby-title { position: absolute; top: 5%; left: 0; right: 0; text-align: center; color: var(--wood-darker); }
+  .lobby-title h1 { font-size: clamp(1.4rem, 3vw, 2rem); }
+  .lobby-title p { color: #8A7F6C; font-size: 0.85rem; margin-top: 0.3rem; }
+
+  .scroll-cue {
+    position: absolute; bottom: 3%; left: 0; right: 0; text-align: center;
+    font-size: 0.75rem; color: var(--wood-dark); opacity: 0.8;
+  }
+
+  /* ================= CONTENT BELOW THE FIXED HERO ================= */
+  .after-hero {
+    position: relative;
+    z-index: 50;
+    margin-top: 100vh;
+    background: var(--marble);
+  }
+
+  .how-it-works {
+    max-width: 900px; margin: 0 auto; padding: 4rem 2rem;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+    text-align: center;
+  }
+  .how-it-works .step .num {
+    font-family: 'Fraunces', serif; font-size: 1.6rem; color: var(--brass); margin-bottom: 0.4rem;
+  }
+  .how-it-works .step h3 { font-size: 1.05rem; color: var(--wood-darker); }
+  .how-it-works .step p { font-size: 0.85rem; color: #7A7266; margin-top: 0.4rem; line-height: 1.5; }
+
+  .trust-strip {
+    background: var(--wood-darker); color: var(--marble);
+    padding: 2.2rem 1rem; display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
+  }
+  .trust-strip .item { text-align: center; max-width: 180px; font-size: 0.8rem; }
+  .trust-strip .item .icon { font-size: 1.3rem; margin-bottom: 0.3rem; }
+
+  footer.site-footer {
+    text-align: center; padding: 2.2rem 1rem; font-size: 0.82rem; color: #8A7F6C;
+  }
+  footer.site-footer a { text-decoration: underline; margin: 0 0.5rem; }
+
+  @media (max-width: 720px) {
+    .how-it-works { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="flash" id="flash"></div>
+
+  <!-- GATE -->
+  <div class="screen" id="gate">
+    <div class="sky-bg"></div>
+    <div class="gate-hint">
+      <h1>PennyWise</h1>
+      <p>Step up to the counter and sign in.</p>
+    </div>
+    <div class="facade" id="facade">
+      <div class="facade-top"></div>
+      <div class="facade-columns">
+        <div class="col"></div><div class="col"></div><div class="col"></div>
+        <div class="col"></div><div class="col"></div><div class="col"></div>
+      </div>
+      <div class="glass-doors">
+        <div class="pane"></div>
+        <div class="pane"></div>
+      </div>
+      <div class="base-step"></div>
+    </div>
+
+    <div class="login-card" id="loginCard">
+      <h2 id="formTitle">Welcome</h2>
+      <p id="formSubtitle">Your finance coach is waiting inside.</p>
+      <input type="email" id="email" placeholder="Email" />
+      <input type="password" id="password" placeholder="Password" />
+      <button id="submitBtn">Log in</button>
+      <div class="status" id="status"></div>
+      <div class="toggle" id="toggleMode">New here? Create an account</div>
+    </div>
+  </div>
+
+  <!-- LOBBY -->
+  <div class="screen" id="lobby">
+    <div class="ceiling"></div>
+    <div class="window"></div>
+    <div class="plant"><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div><div class="pot"></div></div>
+    <div class="floor"></div>
+    <div class="lobby-title"><h1>Welcome back.</h1><p>Choose a desk to get started.</p></div>
+    <div class="desks">
+      <div class="desk" data-page="ledger.html">
+        <div class="clock">📒</div><div class="label">The Ledger Desk</div>
+        <div class="sub">Upload spending, see summaries</div><div class="chair"></div><div class="counter"></div>
+      </div>
+      <div class="desk" data-page="advisor.html">
+        <div class="clock">🎓</div><div class="label">The Advisor's Desk</div>
+        <div class="sub">Ask any finance question</div><div class="chair"></div><div class="counter"></div>
+      </div>
+      <div class="desk" data-page="coach.html">
+        <div class="clock">🧭</div><div class="label">The Coach's Corner</div>
+        <div class="sub">Personalized guidance</div><div class="chair"></div><div class="counter"></div>
+      </div>
+      <div class="desk" data-page="vault.html">
+        <div class="clock">🔒</div><div class="label">The Vault</div>
+        <div class="sub">Privacy & account settings</div><div class="chair"></div><div class="counter"></div>
+      </div>
+    </div>
+    <div class="scroll-cue">↓ scroll for more about PennyWise</div>
+  </div>
+
+  <!-- SCROLLABLE CONTENT BELOW THE HERO -->
+  <div class="after-hero">
+    <section class="how-it-works">
+      <div class="step">
+        <div class="num">01</div>
+        <h3>Upload your spending</h3>
+        <p>Bring a CSV of your transactions. PennyWise summarizes income, expenses, and category totals.</p>
+      </div>
+      <div class="step">
+        <div class="num">02</div>
+        <h3>Ask a real question</h3>
+        <p>"How does a SIP work?" or "How much can I invest?" — answered using your own numbers and curated finance guides.</p>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <h3>Get grounded answers</h3>
+        <p>Every answer is generated from retrieved knowledge and your real data — never guessed, always cited.</p>
+      </div>
+    </section>
+
+    <div class="trust-strip">
+      <div class="item"><div class="icon">🔒</div>Passwords are hashed with Argon2, never stored in plain text</div>
+      <div class="item"><div class="icon">🔑</div>Sessions use short-lived signed tokens, not stored passwords</div>
+      <div class="item"><div class="icon">🚫</div>Raw transactions are never sent to the AI model, only summaries</div>
+      <div class="item"><div class="icon">🗑️</div>You can delete your data at any time from The Vault</div>
+    </div>
+
+    <footer class="site-footer">
+      <div><a href="about.html">About this project</a> · <a href="privacy.html">Privacy Policy</a></div>
+      <div style="margin-top:0.6rem;">PennyWise is an educational project. Not financial advice.</div>
+    </footer>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

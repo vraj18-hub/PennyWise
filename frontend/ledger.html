@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Ledger Desk — PennyWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --marble: #F3EFE6; --marble-dark: #E4DCC9;
+    --wood: #B98A5A; --wood-dark: #8B6239; --wood-darker: #6B4A29;
+    --brass: #C9A227; --sage: #7C9473; --ink: #2B2620; --error: #C0453A;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--marble); color: var(--ink); font-family: 'Work Sans', sans-serif; }
+  h1, h2, h3 { font-family: 'Fraunces', serif; margin: 0; font-weight: 500; }
+
+  header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 2rem; border-bottom: 1px solid var(--marble-dark);
+  }
+  header .back { text-decoration: none; color: var(--wood-darker); font-size: 0.9rem; }
+  header .logout { cursor: pointer; color: #8A7F6C; font-size: 0.85rem; text-decoration: underline; }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+  .wrap h1 { font-size: 1.8rem; color: var(--wood-darker); }
+  .wrap > p.lead { color: #7A7266; margin-top: 0.4rem; }
+
+  .upload-box {
+    margin-top: 2rem; background: white; border: 1.5px dashed var(--brass);
+    border-radius: 14px; padding: 1.6rem; text-align: center;
+  }
+  .upload-box input[type=file] { margin-bottom: 0.8rem; }
+  .upload-box button {
+    display: block; margin: 0.6rem auto 0; padding: 0.65rem 1.6rem;
+    background: var(--wood-darker); color: white; border: none; border-radius: 8px;
+    font-family: 'Fraunces', serif; cursor: pointer;
+  }
+  .upload-box button:hover { background: var(--brass); }
+  .upload-box button:disabled { opacity: 0.5; cursor: default; }
+  .upload-status { margin-top: 0.8rem; font-size: 0.85rem; min-height: 1.2em; }
+  .upload-status.error { color: var(--error); }
+  .upload-status.success { color: var(--sage); }
+
+  .stats {
+    margin-top: 2.5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem;
+  }
+  .stat {
+    background: white; border-radius: 12px; padding: 1.2rem;
+    border-top: 4px solid var(--brass); text-align: center;
+  }
+  .stat .k { font-size: 0.78rem; color: #8A7F6C; }
+  .stat .v { font-family: 'Fraunces', serif; font-size: 1.6rem; margin-top: 0.3rem; color: var(--wood-darker); }
+  .stat .v.pos { color: var(--sage); }
+
+  .breakdown { margin-top: 2.5rem; }
+  .breakdown h2 { font-size: 1.2rem; color: var(--wood-darker); margin-bottom: 1rem; }
+  .bar-row { margin-bottom: 0.9rem; }
+  .bar-row .bar-label {
+    display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.3rem;
+  }
+  .bar-track { background: var(--marble-dark); border-radius: 6px; height: 12px; overflow: hidden; }
+  .bar-fill { background: var(--wood); height: 100%; border-radius: 6px; transition: width 0.6s ease; }
+
+  .empty-state { text-align: center; color: #8A7F6C; margin-top: 2.5rem; font-size: 0.9rem; }
+
+  @media (max-width: 600px) {
+    .stats { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <a class="back" href="index.html">← Back to the lobby</a>
+    <span class="logout" id="logoutBtn">Log out</span>
+  </header>
+
+  <div class="wrap">
+    <h1>📒 The Ledger Desk</h1>
+    <p class="lead">Upload your spending, and see exactly where it's going.</p>
+
+    <div class="upload-box">
+      <input type="file" id="csvFile" accept=".csv" />
+      <button id="uploadBtn">Upload transactions</button>
+      <div class="upload-status" id="uploadStatus"></div>
+    </div>
+
+    <div id="summaryArea"></div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/ledger.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+What are the major types of taxes in India?
+ 
+India has direct taxes and indirect taxes. Direct taxes are paid straight to the government by the person or business that earns the income, and income tax and capital gains tax are the main examples. Indirect taxes are added to the price of goods and services and collected by businesses on the government's behalf, and GST is the main example. TDS is not a separate kind of tax but a method of collecting income tax at the moment a payment is made.
+ 
+What is income tax and who has to pay it?
+ 
+Income tax is a direct tax on the income you earn in a financial year, which runs from April 1 to March 31. It applies to salary, business or professional income, rent, interest, and capital gains. Individuals whose income is above the basic exemption limit set by the government must pay tax and usually file an income tax return. For example, a salaried employee pays income tax based on their slab, and most of it is normally deducted by the employer every month.
+ 
+How do tax slabs work?
+ 
+India uses a progressive slab system, which means only the income within each band is taxed at that band's rate, not your entire income. The following example uses hypothetical rates purely for illustration. Suppose the first 3 lakh is taxed at 0 percent, the next 3 lakh at 5 percent, and anything above at 10 percent. Someone earning 8 lakh would pay nothing on the first 3 lakh, 5 percent on the next 3 lakh, and 10 percent only on the remaining 2 lakh. Actual slabs and rates are set by each year's Budget, so always check the official Income Tax Department website for the current numbers.
+ 
+What is the difference between the old and new income tax regime?
+ 
+The old tax regime allows many deductions and exemptions, such as under Section 80C for investments, Section 80D for health insurance, and house rent allowance, but its tax rates are higher. The new tax regime offers lower tax rates but removes most of those deductions and exemptions, and it is now the default regime unless you choose otherwise. To decide which is better, add up all the deductions you can actually claim and compute your tax under both regimes. People with large deductions, such as a home loan, insurance premiums, and 80C investments, may save more under the old regime, while people with few deductions often save more under the new one.
+ 
+What is Section 80C?
+ 
+Section 80C of the Income Tax Act lets you reduce your taxable income by investing in specified instruments, up to an overall limit set by law, under the old tax regime. Common options include the Public Provident Fund, Employees' Provident Fund, ELSS mutual funds, tax-saver fixed deposits, life insurance premiums, and children's tuition fees. The limit and the list can change, so verify the current rules before planning. Do not invest in something just to save tax if it does not fit your goals.
+ 
+What other deductions are commonly claimed?
+ 
+Section 80D covers health insurance premiums paid for yourself, your family, and your parents. Section 80CCD(1B) gives an additional deduction for contributions to the National Pension System. House rent allowance and interest on a home loan can also reduce taxable income in the old regime. The standard deduction is a flat amount available to salaried individuals without needing any proof. Limits are revised from time to time, so treat any figure as something to confirm on the official portal.
+ 
+What is GST?
+ 
+GST, or Goods and Services Tax, is an indirect tax charged on the supply of most goods and services in India. Unlike income tax, GST is collected by businesses from customers at the time of sale and then paid to the government. It is charged in different rate slabs depending on the type of good or service. For example, when you eat at a restaurant or buy a phone, GST is included in the bill and you pay it as part of the price.
+ 
+What is capital gains tax?
+ 
+Capital gains tax applies to the profit you make when you sell a capital asset such as shares, mutual fund units, or property for more than you paid. If the profit comes from an asset held for a short time, it is a short-term capital gain, and if the asset was held longer, it is a long-term capital gain, usually taxed at a different rate. For listed shares and equity mutual funds, the dividing line is 12 months, and for property it is 24 months. Rules and rates for different assets, especially debt funds, have changed in recent years, so check the current provisions before selling. For example, if someone buys shares and sells them after 14 months at a profit, that profit is treated as a long-term capital gain.
+ 
+What is TDS?
+ 
+TDS, or Tax Deducted at Source, means the person making certain payments deducts tax before paying you and deposits it with the government in your name. It applies to salary, interest on fixed deposits above a threshold, rent above a threshold, professional fees, and some other payments. For example, when a bank pays interest on your fixed deposit, it may deduct TDS first and credit only the remaining amount. TDS is not an extra tax, because it counts toward your total tax liability, and if too much was deducted you can claim a refund when you file your return.
+ 
+What is advance tax?
+ 
+Advance tax is income tax paid in installments during the financial year instead of in one lump sum at the end. It applies to people whose total tax liability after TDS is above a threshold set by law, such as freelancers, business owners, and investors with large capital gains. Missing advance tax deadlines can lead to interest charges.
+ 
+What is PAN and why does it matter?
+ 
+PAN, or Permanent Account Number, is a ten-character identifier issued by the Income Tax Department to track your financial transactions. It is required to file income tax returns, open bank and demat accounts, and make many high-value transactions. Keep it secure and share it only with genuine institutions.
+ 
+How do I file an income tax return?
+ 
+You file your return online on the Income Tax Department's e-filing portal, usually by July 31 of the assessment year for individuals who do not need an audit, though the government can extend the deadline. You will need your PAN, Form 16 from your employer, your Annual Information Statement, and proof of deductions you claim. Compare your figures with the Annual Information Statement before submitting, and verify the return after filing. If you are unsure, consult a qualified chartered accountant.

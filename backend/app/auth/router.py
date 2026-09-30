@@ -5,15 +5,21 @@ from sqlalchemy.orm import Session
 
 from app.auth.dependencies import get_current_user
 from app.auth.passwords import hash_password, verify_password
-from app.auth.schemas import Token, UserCreate, UserOut
+from app.auth.schemas import Token, UserCreate, UserOut, PasswordChange
 from app.auth.tokens import create_access_token
 from app.db.database import get_db
-from app.db.models import User
+from app.db.models import User, Transaction
+from app.security.rate_limiter import auth_rate_limiter
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 
-@router.post("/register", response_model=UserOut, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/register",
+    response_model=UserOut,
+    status_code=status.HTTP_201_CREATED,
+    dependencies=[Depends(auth_rate_limiter)],
+)
 def register(data: UserCreate, db: Session = Depends(get_db)):
     email = data.email.lower()
 
@@ -28,10 +34,15 @@ def register(data: UserCreate, db: Session = Depends(get_db)):
     return user
 
 
-@router.post("/login", response_model=Token)
+@router.post(
+    "/login",
+    response_model=Token,
+    dependencies=[Depends(auth_rate_limiter)],
+)
 def login(
     form: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ):
+
     email = form.username.lower()
     user = db.execute(select(User).where(User.email == email)).scalar_one_or_none()
 
@@ -49,3 +60,37 @@ def login(
 @router.get("/me", response_model=UserOut)
 def me(current_user: User = Depends(get_current_user)):
     return current_user
+
+@router.delete("/me", status_code=status.HTTP_200_OK)
+def delete_account(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    # Step 1: delete all transactions that belong to this user
+    db.query(Transaction).filter(Transaction.user_id == current_user.id).delete()
+
+    # Step 2: delete the user itself
+    db.delete(current_user)
+
+    # Step 3: save both deletions to the database in one shot
+    db.commit()
+
+    # Step 4: return a confirmation message
+    return {"detail": "Account and all data deleted"}
+
+
+@router.put("/password", status_code=status.HTTP_200_OK)
+def change_password(
+    data: PasswordChange,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    # Step 1: verify the current password is correct
+    if not verify_password(data.current_password, current_user.hashed_password):
+        raise HTTPException(status_code=400, detail="Current password is incorrect")
+
+    # Step 2: hash the new password and save it
+    current_user.hashed_password = hash_password(data.new_password)
+    db.commit()
+
+    return {"detail": "Password updated successfully"}

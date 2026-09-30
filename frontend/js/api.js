@@ -67,3 +67,116 @@ async function authFetch(path, options = {}) {
 
   return res;
 }
+
+async function apiUploadCSV(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const res = await authFetch('/transactions/upload', {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || 'Upload failed');
+  }
+
+  return res.json();
+}
+
+async function apiGetSummary() {
+  const res = await authFetch('/transactions/summary');
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || 'Could not load summary');
+  }
+
+  return res.json();
+}
+
+async function apiAskRag(question) {
+  const res = await authFetch('/rag/ask', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ question }),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || 'Something went wrong');
+  }
+
+  return res.json();
+}
+
+async function apiAskInsight(question) {
+  const res = await authFetch('/insights/ask', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ question }),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || 'Something went wrong');
+  }
+
+  return res.json();
+}
+
+async function apiDeleteAccount() {
+  const res = await authFetch('/auth/me', {
+    method: 'DELETE',
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || 'Could not delete account');
+  }
+
+  return res.json();
+}
+
+async function apiGetTransactions() {
+  const res = await authFetch('/transactions/');
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || 'Could not load transactions');
+  }
+
+  return res.json();
+}
+
+async function apiClearTransactions() {
+  const res = await authFetch('/transactions/', {
+    method: 'DELETE',
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || 'Could not clear transactions');
+  }
+
+  return res.json();
+}
+
+async function apiChangePassword(currentPassword, newPassword) {
+  const res = await authFetch('/auth/password', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      current_password: currentPassword,
+      new_password: newPassword,
+    }),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || 'Could not change password');
+  }
+
+  return res.json();
+}

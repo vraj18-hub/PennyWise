@@ -1,8 +1,8 @@
 def chunk_text(text: str, chunk_size: int = 400, overlap: int = 60) -> list[str]:
     """
     Split text into overlapping chunks of roughly `chunk_size` characters.
-    Tries to break at a paragraph or sentence boundary when possible,
-    instead of cutting mid-sentence.
+    Prefers to break at a paragraph or sentence boundary, but only if that
+    boundary is in the second half of the window, so chunks never get tiny.
     """
     text = text.strip()
     chunks = []
@@ -12,25 +12,25 @@ def chunk_text(text: str, chunk_size: int = 400, overlap: int = 60) -> list[str]
         end = start + chunk_size
 
         if end >= len(text):
-            chunks.append(text[start:].strip())
+            last = text[start:].strip()
+            if last:
+                chunks.append(last)
             break
 
-        # Try to find a natural breakpoint near the target end
         window = text[start:end]
         break_point = max(window.rfind("\n\n"), window.rfind(". "))
 
-        if break_point == -1:
-            # No natural break found, cut at the target size anyway
+        # Ignore breaks in the first half of the window; cut at the target size instead
+        if break_point < chunk_size // 2:
             actual_end = end
         else:
-            # +2 to include the period+space or the double newline
             actual_end = start + break_point + 2
 
         chunk = text[start:actual_end].strip()
         if chunk:
             chunks.append(chunk)
 
-        # Move start forward, but back up by `overlap` characters
-        start = actual_end - overlap
+        # Step forward, keeping some overlap, but ALWAYS make progress
+        start = max(actual_end - overlap, start + 1)
 
     return chunks

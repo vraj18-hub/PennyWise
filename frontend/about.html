@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About — PennyWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --marble:#F3EFE6; --wood-darker:#6B4A29; --brass:#C9A227; --ink:#2B2620; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--marble); color:var(--ink); font-family:'Work Sans',sans-serif; }
+  h1,h2 { font-family:'Fraunces',serif; font-weight:600; color:var(--wood-darker); }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+  .back { display:inline-block; margin-bottom: 2rem; text-decoration:none; color:var(--wood-darker); font-size:0.9rem; }
+  section { margin-bottom: 2.2rem; }
+  p { line-height: 1.65; color:#4a433a; }
+  ul { line-height: 1.8; color:#4a433a; }
+  .tag { display:inline-block; background:white; border:1px solid var(--brass); border-radius:6px; padding:0.2rem 0.6rem; font-size:0.8rem; margin:0.2rem 0.3rem 0.2rem 0; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="index.html">← Back to PennyWise</a>
+    <h1>About this project</h1>
+
+    <section>
+      <p>PennyWise is a personal finance coach built to explain financial concepts clearly and give personalized guidance grounded in your own spending — without pretending to be a licensed financial advisor.</p>
+    </section>
+
+    <section>
+      <h2>How it's built</h2>
+      <p>Every answer comes from a retrieval-augmented generation (RAG) pipeline: your question is matched against a curated knowledge base using embeddings and a vector database, and the retrieved passages are handed to a language model along with your own transaction summary — never raw transaction data.</p>
+      <div>
+        <span class="tag">FastAPI</span>
+        <span class="tag">SQLite + SQLAlchemy</span>
+        <span class="tag">Argon2 password hashing</span>
+        <span class="tag">JWT sessions</span>
+        <span class="tag">Chroma vector database</span>
+        <span class="tag">Sentence-Transformers embeddings</span>
+        <span class="tag">Local LLM (Ollama)</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Why it looks like a bank</h2>
+      <p>Rather than a generic dashboard, PennyWise is designed as a walk-through of a real bank: a gate to sign in at, and desks inside for each service — a ledger for your spending, an advisor for finance questions, a coach for personalized guidance, and a vault for your privacy settings.</p>
+    </section>
+
+    <section>
+      <h2>A note on advice</h2>
+      <p>This is an educational project, not a substitute for a licensed financial advisor. Always verify important financial decisions with a qualified professional.</p>
+    </section>
+  </div>
+</body>
+</html>

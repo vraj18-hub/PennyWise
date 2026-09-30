@@ -6,16 +6,22 @@ from app.db.database import get_db
 from app.db.models import User
 from app.insights.schemas import InsightRequest, InsightResponse
 from app.insights.service import generate_insight
+from app.security.rate_limiter import llm_rate_limiter
 
 router = APIRouter(prefix="/insights", tags=["insights"])
 
 
-@router.post("/ask", response_model=InsightResponse)
+@router.post(
+    "/ask",
+    response_model=InsightResponse,
+    dependencies=[Depends(llm_rate_limiter)],
+)
 def ask_insight(
     data: InsightRequest,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+
     question = data.question.strip()
 
     if not question:

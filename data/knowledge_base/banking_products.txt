@@ -1,0 +1,51 @@
+What is a savings account?
+ 
+A savings account is a basic bank account that pays a modest rate of interest on the balance and lets you deposit and withdraw money freely. It is meant for everyday money and emergency funds, not for growing wealth, because its interest rate is usually lower than inflation over long periods.
+ 
+What is a fixed deposit?
+ 
+A fixed deposit, or FD, is a bank deposit where you lock in a lump sum for a chosen period at a fixed interest rate. Withdrawing before maturity usually attracts a penalty. FDs are low risk and predictable, which makes them suitable for short-term goals. For example, depositing 1,00,000 rupees at 7 percent for one year earns about 7,000 rupees in interest before tax. Interest from FDs is taxable, and the bank may deduct TDS above a threshold.
+ 
+What is a recurring deposit?
+ 
+A recurring deposit, or RD, lets you deposit a fixed amount every month for a chosen period and earn a fixed interest rate, similar to an FD. It suits people who want to build a savings habit without a large lump sum. At maturity, you receive the total deposits plus interest.
+ 
+Are my bank deposits safe?
+ 
+In India, the Deposit Insurance and Credit Guarantee Corporation insures deposits in each bank up to 5 lakh rupees per depositor, covering principal and interest combined. If you hold more than that, spreading it across different banks reduces your risk. Banks in India are regulated by the Reserve Bank of India.
+ 
+What is the repo rate and how does it affect me?
+ 
+The repo rate is the interest rate at which the Reserve Bank of India lends money to commercial banks. When the RBI raises it, borrowing generally becomes more expensive, so loan rates tend to rise, and deposit rates often rise too. When it lowers the rate, loans usually become cheaper. Floating-rate loans react to these changes, while fixed-rate loans do not.
+ 
+What is a loan and what are the common types?
+ 
+A loan is money you borrow and repay with interest over time. Home loans finance property and usually have the lowest rates and longest terms. Education loans fund studies and often have a moratorium period. Car loans are secured by the vehicle. Personal loans are unsecured, meaning there is no collateral, so their interest rates are much higher. Secured loans are backed by an asset the lender can claim if you do not repay, while unsecured loans are not.
+ 
+What is an EMI?
+ 
+EMI stands for equated monthly installment, the fixed amount you pay every month to repay a loan. Each EMI contains part interest and part principal. In the early years most of the EMI goes toward interest, and over time more goes toward principal. For example, a loan of 5,00,000 rupees at 10 percent for five years has an EMI of about 10,624 rupees, and you would pay roughly 1.37 lakh rupees in total interest over the loan.
+ 
+What is the difference between a fixed and a floating interest rate?
+ 
+With a fixed rate, the interest rate stays the same for the whole loan period, so your EMI is predictable. With a floating rate, the rate changes as market rates change, so your EMI or the loan tenure can go up or down. Floating rates are common for home loans, and they often start lower than fixed rates.
+ 
+Should I prepay a loan?
+ 
+Paying extra toward a loan reduces the outstanding principal, which cuts the interest you pay over the life of the loan. Prepaying is usually worthwhile for high-interest loans such as personal loans and credit card balances. For a low-interest home loan, some people prefer to invest the extra money if they expect higher returns, though that involves risk. Check whether your lender charges a prepayment penalty first.
+ 
+How does a credit card billing cycle work?
+ 
+A credit card lets you spend now and pay later. Your purchases in a billing cycle, usually about a month, are added into a statement. You then get a due date, often around 15 to 20 days after the statement date. If you pay the full statement amount by the due date, you pay no interest, and this interest-free window can be up to around 50 days from the purchase date, depending on the issuer.
+ 
+What happens if I only pay the minimum due on a credit card?
+ 
+The minimum due is a small fraction of your bill, often around 5 percent. If you pay only that, the rest becomes a revolving balance on which interest is charged, commonly at 36 to 42 percent a year, and you also lose the interest-free period on new purchases. For example, carrying a 20,000 rupee balance for a few months can cost thousands of rupees in interest. The safest habit is to pay the full statement amount every month.
+ 
+What is a credit score?
+ 
+A credit score is a three-digit number, typically between 300 and 900 in India, that shows how reliably you have repaid debt in the past. Scores are produced by credit bureaus such as CIBIL. A score of about 750 or higher is generally considered good and helps you get loans at lower rates. To build a good score, pay EMIs and card bills on time, keep credit card usage well below your limit, avoid applying for many loans at once, and check your report regularly for errors.
+ 
+What is UPI?
+ 
+The Unified Payments Interface is an instant payment system that lets you send money directly between bank accounts using a mobile app and a UPI ID or QR code. Never share your UPI PIN or OTP with anyone, and remember that you never need to enter a PIN to receive money.

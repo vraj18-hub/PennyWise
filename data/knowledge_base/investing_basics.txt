@@ -1,0 +1,55 @@
+What is investing?
+ 
+Investing means putting money into assets such as shares, bonds, mutual funds, gold, or property with the expectation that they will grow in value or generate income over time. Unlike saving, where the goal is safety and easy access, investing accepts some risk in exchange for the possibility of higher returns than a savings account can offer.
+ 
+Why does inflation matter for investing?
+ 
+Inflation is the gradual rise in prices over time. If prices rise about 6 percent a year and your money earns only 3 percent, your money buys less every year even though the balance is growing. Investing aims to earn returns above inflation so that your purchasing power increases over the long term. For example, 100 rupees that grows at 4 percent while inflation is 6 percent effectively loses value.
+ 
+What is risk versus return?
+ 
+Generally, assets with higher potential returns carry a higher risk of loss or large swings in value. Savings accounts and fixed deposits offer low but predictable returns. Shares can offer higher returns over long periods but can fall sharply in the short term. There is no reliable investment that offers high returns with no risk, and anyone promising guaranteed high returns should be treated with suspicion.
+ 
+What are stocks?
+ 
+A stock, or share, represents a small ownership stake in a company. If the company grows and earns profits, the share price may rise and the company may pay dividends. If it performs badly, the price can fall. In India, shares are bought and sold on exchanges such as the NSE and BSE through a demat and trading account, and the market is regulated by SEBI, the Securities and Exchange Board of India.
+ 
+What are bonds and debt instruments?
+ 
+A bond is a loan you give to a government or company in return for regular interest and repayment of the principal at maturity. Government securities are considered very safe, while corporate bonds carry more risk depending on the issuer's credit quality. Debt instruments usually offer steadier but lower returns than shares.
+ 
+What is a mutual fund?
+ 
+A mutual fund pools money from many investors, and a professional fund manager invests it in a basket of shares, bonds, or other assets. Each investor owns units of the fund, and the price of one unit is called the NAV, or net asset value. Mutual funds let small investors get diversification without buying many securities individually. Funds charge an annual fee called the expense ratio, which reduces your returns slightly.
+ 
+What are the main types of mutual funds?
+ 
+Equity funds invest mainly in shares and suit long-term goals. Debt funds invest in bonds and suit shorter goals or a lower appetite for risk. Hybrid funds mix equity and debt. Index funds simply copy a market index such as the Nifty 50 at low cost. ELSS funds are equity funds with a three-year lock-in that can qualify for a tax deduction under the old tax regime.
+ 
+What is the difference between equity and debt mutual funds?
+ 
+Equity funds invest mainly in company shares, so their value can rise or fall sharply, but they have historically offered higher returns over long periods. Debt funds invest in fixed-income instruments like bonds and government securities, so their value moves less, but returns are usually lower and are not guaranteed. Choose equity for goals that are five or more years away, and debt for goals that are closer or for money you cannot afford to see fall in value.
+ 
+What is an ETF?
+ 
+An exchange-traded fund is a fund that trades on the stock exchange like a share. Most ETFs track an index or an asset such as gold. Because they usually follow an index passively, their costs are generally low. You need a demat account to buy and sell ETFs during market hours.
+ 
+What is diversification?
+ 
+Diversification means spreading money across different assets, sectors, or types so that a problem in one area does not ruin your whole portfolio. It is often summed up as not putting all your eggs in one basket. A mutual fund or index fund provides built-in diversification.
+ 
+What is asset allocation?
+ 
+Asset allocation is how you divide your money between categories such as equity, debt, and gold. Younger investors with long time horizons often hold more equity, while people nearing a goal usually shift toward debt to protect what they have built. The right mix depends on your goals, your time horizon, and how much loss you can tolerate without panicking.
+ 
+What is compounding?
+ 
+Compounding is earning returns on your earlier returns. If you invest 10,000 rupees at 10 percent a year, you have 11,000 after one year, and in the second year you earn 10 percent on 11,000, not just on 10,000. Over many years this snowball effect becomes powerful, which is why starting early usually matters more than starting big.
+ 
+What are PPF, NPS, and gold as investment options in India?
+ 
+The Public Provident Fund is a government-backed long-term savings scheme with a 15-year lock-in, and its interest rate is set by the government and revised periodically. The National Pension System is a retirement scheme that invests in a mix of equity and debt, and part of it stays locked in until retirement age. Gold can be held through gold ETFs, gold funds, or physical gold, and is often used as a hedge against inflation and uncertainty.
+ 
+How should a beginner start investing in India?
+ 
+First complete your KYC, which needs your PAN and Aadhaar-linked details. Build an emergency fund and get basic insurance before investing. A beginner can then open a mutual fund account through a SEBI-registered platform, start a small SIP in a diversified index fund or equity fund, and increase the amount as income grows. Invest only in products regulated by SEBI, avoid tips from unknown sources, and never put money into shares that you may need within the next few years.

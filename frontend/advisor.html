@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Advisor's Desk — PennyWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --marble: #F3EFE6; --marble-dark: #E4DCC9;
+    --wood-dark: #8B6239; --wood-darker: #6B4A29;
+    --brass: #C9A227; --sage: #7C9473; --ink: #2B2620; --error: #C0453A;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--marble); color: var(--ink); font-family: 'Work Sans', sans-serif; }
+  h1, h2 { font-family: 'Fraunces', serif; margin: 0; font-weight: 500; }
+
+  header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 2rem; border-bottom: 1px solid var(--marble-dark);
+  }
+  header .back { text-decoration: none; color: var(--wood-darker); font-size: 0.9rem; }
+  header .logout { cursor: pointer; color: #8A7F6C; font-size: 0.85rem; text-decoration: underline; }
+
+  .wrap { max-width: 700px; margin: 0 auto; padding: 2.5rem 1.5rem 2rem; }
+  .wrap h1 { font-size: 1.8rem; color: var(--wood-darker); }
+  .wrap > p.lead { color: #7A7266; margin-top: 0.4rem; margin-bottom: 1.5rem; }
+
+  .chat-log {
+    display: flex; flex-direction: column; gap: 1rem;
+    min-height: 200px;
+  }
+
+  .bubble {
+    max-width: 82%;
+    padding: 0.9rem 1.1rem;
+    border-radius: 14px;
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+  .bubble.user {
+    align-self: flex-end;
+    background: var(--wood-darker);
+    color: white;
+    border-bottom-right-radius: 4px;
+  }
+  .bubble.assistant {
+    align-self: flex-start;
+    background: white;
+    border: 1px solid var(--marble-dark);
+    border-bottom-left-radius: 4px;
+  }
+  .bubble.loading { color: #8A7F6C; font-style: italic; }
+  .bubble.error { border-color: var(--error); color: var(--error); }
+
+  .sources {
+    margin-top: 0.6rem; font-size: 0.75rem; color: var(--sage);
+  }
+
+  .input-row {
+    display: flex; gap: 0.6rem; margin-top: 1.5rem;
+    position: sticky; bottom: 1rem;
+  }
+  .input-row input {
+    flex: 1; padding: 0.85rem 1rem; border-radius: 10px;
+    border: 1.5px solid var(--marble-dark); font-family: inherit; font-size: 0.92rem;
+  }
+  .input-row button {
+    padding: 0.85rem 1.4rem; background: var(--wood-darker); color: white;
+    border: none; border-radius: 10px; font-family: 'Fraunces', serif; cursor: pointer;
+  }
+  .input-row button:hover { background: var(--brass); }
+  .input-row button:disabled { opacity: 0.5; cursor: default; }
+
+  .suggestions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .suggestions button {
+    background: white; border: 1px solid var(--marble-dark); border-radius: 999px;
+    padding: 0.45rem 0.9rem; font-size: 0.8rem; cursor: pointer; color: var(--wood-darker);
+  }
+  .suggestions button:hover { border-color: var(--brass); }
+</style>
+</head>
+<body>
+
+  <header>
+    <a class="back" href="index.html">← Back to the lobby</a>
+    <span class="logout" id="logoutBtn">Log out</span>
+  </header>
+
+  <div class="wrap">
+    <h1>🎓 The Advisor's Desk</h1>
+    <p class="lead">Ask anything about investing, tax, or how money works.</p>
+
+    <div class="suggestions" id="suggestions">
+      <button data-q="How does compounding work in a SIP?">How does compounding work in a SIP?</button>
+      <button data-q="What's the difference between old and new tax regime?">Old vs new tax regime?</button>
+      <button data-q="Equity vs debt mutual funds?">Equity vs debt mutual funds?</button>
+    </div>
+
+    <div class="chat-log" id="chatLog"></div>
+
+    <div class="input-row">
+      <input type="text" id="questionInput" placeholder="Ask a finance question…" />
+      <button id="askBtn">Ask</button>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/advisor.js"></script>
+</body>
+</html>

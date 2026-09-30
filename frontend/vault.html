@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Vault — PennyWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --marble: #F3EFE6; --marble-dark: #E4DCC9;
+    --wood-dark: #8B6239; --wood-darker: #6B4A29;
+    --brass: #C9A227; --sage: #7C9473; --ink: #2B2620; --error: #C0453A;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--marble); color: var(--ink); font-family: 'Work Sans', sans-serif; }
+  h1, h2 { font-family: 'Fraunces', serif; margin: 0; font-weight: 500; }
+
+  header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 2rem; border-bottom: 1px solid var(--marble-dark);
+  }
+  header .back { text-decoration: none; color: var(--wood-darker); font-size: 0.9rem; }
+  header .logout { cursor: pointer; color: #8A7F6C; font-size: 0.85rem; text-decoration: underline; }
+
+  .wrap { max-width: 600px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+  .wrap h1 { font-size: 1.8rem; color: var(--wood-darker); }
+  .wrap > p.lead { color: #7A7266; margin-top: 0.4rem; }
+
+  /* Profile card */
+  .profile-card {
+    margin-top: 2rem; background: white; border-radius: 12px;
+    padding: 1.4rem; border-top: 4px solid var(--brass);
+  }
+  .profile-card .label { font-size: 0.78rem; color: #8A7F6C; margin-bottom: 0.2rem; }
+  .profile-card .value { font-family: 'Fraunces', serif; font-size: 1.15rem; color: var(--wood-darker); }
+  .profile-card .row { margin-bottom: 1rem; }
+  .profile-card .row:last-child { margin-bottom: 0; }
+
+  /* Danger zone */
+  .danger-zone {
+    margin-top: 2.5rem; border: 1.5px solid var(--error); border-radius: 12px;
+    padding: 1.4rem;
+  }
+  .danger-zone h2 { font-size: 1.1rem; color: var(--error); margin-bottom: 0.5rem; }
+  .danger-zone p { font-size: 0.85rem; color: #7A7266; line-height: 1.5; margin: 0 0 1rem; }
+  .danger-zone button {
+    padding: 0.7rem 1.4rem; background: var(--error); color: white;
+    border: none; border-radius: 8px; font-family: 'Fraunces', serif;
+    font-size: 0.95rem; cursor: pointer; transition: opacity 0.2s;
+  }
+  .danger-zone button:hover { opacity: 0.85; }
+  .danger-zone button:disabled { opacity: 0.5; cursor: default; }
+  .danger-zone .status { font-size: 0.8rem; margin-top: 0.7rem; min-height: 1.1em; }
+  .danger-zone .status.error { color: var(--error); }
+
+    /* Transaction history */
+  .history {
+    margin-top: 2.5rem;
+  }
+  .history h2 { font-size: 1.2rem; color: var(--wood-darker); margin-bottom: 0.5rem; }
+  .history .count { font-size: 0.82rem; color: #8A7F6C; margin-bottom: 1rem; }
+
+  .txn-table {
+    width: 100%; border-collapse: collapse; font-size: 0.85rem;
+  }
+  .txn-table th {
+    text-align: left; padding: 0.6rem 0.8rem; border-bottom: 2px solid var(--brass);
+    font-family: 'Fraunces', serif; font-weight: 500; color: var(--wood-darker);
+  }
+  .txn-table td {
+    padding: 0.55rem 0.8rem; border-bottom: 1px solid var(--marble-dark);
+  }
+  .txn-table tr:hover td { background: rgba(201,162,39,0.06); }
+  .txn-table .amt-pos { color: var(--sage); }
+  .txn-table .amt-neg { color: var(--error); }
+
+  /* Password change */
+  .pw-section {
+    margin-top: 2.5rem; background: white; border-radius: 12px;
+    padding: 1.4rem; border-top: 4px solid var(--sage);
+  }
+  .pw-section h2 { font-size: 1.1rem; color: var(--wood-darker); margin-bottom: 0.8rem; }
+  .pw-section input {
+    width: 100%; padding: 0.65rem 0.9rem; margin-bottom: 0.6rem;
+    border: 1.5px solid #E1DACB; border-radius: 8px;
+    font-family: inherit; font-size: 0.88rem;
+  }
+  .pw-section button {
+    padding: 0.65rem 1.4rem; background: var(--sage); color: white;
+    border: none; border-radius: 8px; font-family: 'Fraunces', serif;
+    font-size: 0.9rem; cursor: pointer; margin-top: 0.3rem;
+  }
+  .pw-section button:hover { opacity: 0.85; }
+  .pw-section button:disabled { opacity: 0.5; cursor: default; }
+  .pw-section .status { font-size: 0.8rem; margin-top: 0.7rem; min-height: 1.1em; }
+</style>
+</head>
+<body>
+
+  <header>
+    <a class="back" href="index.html">← Back to the lobby</a>
+    <span class="logout" id="logoutBtn">Log out</span>
+  </header>
+
+  <div class="wrap">
+    <h1>🔒 The Vault</h1>
+    <p class="lead">Your account settings and data privacy controls.</p>
+
+    <!-- Profile info -->
+    <div class="profile-card" id="profileCard">
+      <div class="row">
+        <div class="label">Email</div>
+        <div class="value" id="userEmail">Loading…</div>
+      </div>
+      <div class="row">
+        <div class="label">Account created</div>
+        <div class="value" id="userCreated">—</div>
+      </div>
+    </div>
+
+    <!-- Transaction history -->
+    <div class="history">
+      <h2>📋 Transaction History</h2>
+      <div class="count" id="txnCount"></div>
+      <div id="txnTableArea"></div>
+      <button id="clearBtn" style="
+        margin-top: 1rem; padding: 0.6rem 1.2rem;
+        background: var(--wood-darker); color: white;
+        border: none; border-radius: 8px; font-family: 'Fraunces', serif;
+        font-size: 0.88rem; cursor: pointer;
+      ">Clear all transactions</button>
+      <div class="status" id="clearStatus" style="font-size: 0.8rem; margin-top: 0.5rem; min-height: 1.1em;"></div>
+    </div>
+
+    <!-- Change password -->
+    <div class="pw-section">
+      <h2>🔑 Change Password</h2>
+      <input type="password" id="currentPw" placeholder="Current password" />
+      <input type="password" id="newPw" placeholder="New password (min 8 characters)" />
+      <input type="password" id="confirmPw" placeholder="Confirm new password" />
+      <button id="changePwBtn">Update password</button>
+      <div class="status" id="pwStatus"></div>
+    </div>
+
+    <!-- Danger zone -->
+    <div class="danger-zone">
+      <h2>⚠️ Delete Account</h2>
+      <p>This will permanently delete your account, all your uploaded transactions,
+         and any associated data. This action cannot be undone.</p>
+      <button id="deleteBtn">Delete my account and data</button>
+      <div class="status" id="deleteStatus"></div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/vault.js"></script>
+</body>
+</html>

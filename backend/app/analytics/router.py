@@ -1,12 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from sqlalchemy.orm import Session
-from app.analytics.schemas import SpendingSummary, UploadResult
+from app.analytics.schemas import SpendingSummary, UploadResult, TransactionOut
 from app.analytics.service import compute_summary, parse_csv, save_transactions
-from app.analytics.schemas import UploadResult
-from app.analytics.service import parse_csv, save_transactions
 from app.auth.dependencies import get_current_user
 from app.db.database import get_db
-from app.db.models import User
+from app.db.models import User, Transaction
 
 router = APIRouter(prefix="/transactions", tags=["transactions"])
 
@@ -34,6 +32,7 @@ async def upload_transactions(
     inserted, skipped = save_transactions(db, current_user.id, df)
     return UploadResult(inserted=inserted, skipped=skipped)
 
+
 @router.get("/summary", response_model=SpendingSummary)
 def get_summary(
     current_user: User = Depends(get_current_user),
@@ -42,3 +41,30 @@ def get_summary(
     summary = compute_summary(db, current_user.id)
     return summary
 
+
+@router.get("/", response_model=list[TransactionOut])
+def list_transactions(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    transactions = (
+        db.query(Transaction)
+        .filter(Transaction.user_id == current_user.id)
+        .order_by(Transaction.date.desc())
+        .all()
+    )
+    return transactions
+
+
+@router.delete("/", status_code=200)
+def clear_transactions(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    count = (
+        db.query(Transaction)
+        .filter(Transaction.user_id == current_user.id)
+        .delete()
+    )
+    db.commit()
+    return {"deleted": count}
